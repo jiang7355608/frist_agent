@@ -18,7 +18,7 @@ mybatis:
 
 # 阿里千问配置
 dashscope:
-  api-key: ${DASHSCOPE_API_KEY:sk-0dd94280ffab46798807f0ade3fbcd4e}
+  api-key: ${DASHSCOPE_API_KEY:xxx}
   model-name: qwen-max
   temperature: 0.7
   max-tokens: 2000
