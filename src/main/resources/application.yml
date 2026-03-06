@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: lis-ai-review
+  
+  datasource:
+    url: jdbc:postgresql://10.0.15.34:6655/zy_lis?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: antdb
+    password: antdb
+    driver-class-name: org.postgresql.Driver
+
+# MyBatis 配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.lis.review.model
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 阿里千问配置
+dashscope:
+  api-key: ${DASHSCOPE_API_KEY:sk-0dd94280ffab46798807f0ade3fbcd4e}
+  model-name: qwen-max
+  temperature: 0.7
+  max-tokens: 2000
+
+server:
+  port: 8080

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lis.review.mapper.TestResultMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="TestResultMap" type="com.lis.review.model.TestResult">
+        <id property="id" column="id"/>
+        <result property="patientId" column="patient_id"/>
+        <result property="patientName" column="patient_name"/>
+        <result property="testItem" column="test_item"/>
+        <result property="testValue" column="test_value"/>
+        <result property="unit" column="unit"/>
+        <result property="referenceRange" column="reference_range"/>
+        <result property="testDate" column="test_date"/>
+        <result property="status" column="status"/>
+        <result property="aiReviewResult" column="ai_review_result"/>
+        <result property="aiReviewTime" column="ai_review_time"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="TestResult" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO test_results (
+            patient_id, patient_name, test_item, test_value, unit,
+            reference_range, test_date, status, created_at, updated_at
+        ) VALUES (
+            #{patientId}, #{patientName}, #{testItem}, #{testValue}, #{unit},
+            #{referenceRange}, #{testDate}, #{status}, #{createdAt}, #{updatedAt}
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="TestResult">
+        UPDATE test_results
+        SET patient_id = #{patientId},
+            patient_name = #{patientName},
+            test_item = #{testItem},
+            test_value = #{testValue},
+            unit = #{unit},
+            reference_range = #{referenceRange},
+            test_date = #{testDate},
+            status = #{status},
+            ai_review_result = #{aiReviewResult},
+            ai_review_time = #{aiReviewTime},
+            updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据ID查询 -->
+    <select id="findById" resultMap="TestResultMap">
+        SELECT * FROM test_results WHERE id = #{id}
+    </select>
+
+    <!-- 根据患者ID查询 -->
+    <select id="findByPatientId" resultMap="TestResultMap">
+        SELECT * FROM test_results 
+        WHERE patient_id = #{patientId}
+        ORDER BY test_date DESC
+    </select>
+
+    <!-- 根据状态查询 -->
+    <select id="findByStatus" resultMap="TestResultMap">
+        SELECT * FROM test_results 
+        WHERE status = #{status}
+        ORDER BY test_date DESC
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="findAll" resultMap="TestResultMap">
+        SELECT * FROM test_results
+        ORDER BY test_date DESC
+    </select>
+
+</mapper>
